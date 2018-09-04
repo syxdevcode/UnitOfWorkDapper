@@ -9,9 +9,11 @@ namespace UnitOfWorkDapper.Core
     {
         public string Configuration { get; set; }
 
-        DapperDBContextOptions IOptions<DapperDBContextOptions>.Value
-        {
-            get { return this; }
-        }
+        //DapperDBContextOptions IOptions<DapperDBContextOptions>.Value
+        //{
+        //    get { return this; }
+        //}
+
+        public DapperDBContextOptions Value => this;
     }
 }

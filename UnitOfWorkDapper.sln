@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper.Core", "UnitOfWorkDapper.Core\UnitOfWorkDapper.Core.csproj", "{CFD99D35-6E52-45CC-81D1-965157BF950E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper.Services", "UnitOfWorkDapper.Services\UnitOfWorkDapper.Services.csproj", "{54EA4051-565C-4129-80A2-63AD64F7F76E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper.Web", "UnitOfWorkDapper.Web\UnitOfWorkDapper.Web.csproj", "{1154D12D-0503-40E1-84D4-5D587160B0CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{CFD99D35-6E52-45CC-81D1-965157BF950E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFD99D35-6E52-45CC-81D1-965157BF950E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFD99D35-6E52-45CC-81D1-965157BF950E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54EA4051-565C-4129-80A2-63AD64F7F76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54EA4051-565C-4129-80A2-63AD64F7F76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54EA4051-565C-4129-80A2-63AD64F7F76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54EA4051-565C-4129-80A2-63AD64F7F76E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1154D12D-0503-40E1-84D4-5D587160B0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1154D12D-0503-40E1-84D4-5D587160B0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1154D12D-0503-40E1-84D4-5D587160B0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1154D12D-0503-40E1-84D4-5D587160B0CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
