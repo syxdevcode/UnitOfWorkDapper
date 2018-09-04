@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper", "UnitOfWorkDapper\UnitOfWorkDapper.csproj", "{B7731AE3-445C-4DBD-B3F4-9064E554A15D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper.Core", "UnitOfWorkDapper.Core\UnitOfWorkDapper.Core.csproj", "{CFD99D35-6E52-45CC-81D1-965157BF950E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7731AE3-445C-4DBD-B3F4-9064E554A15D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7731AE3-445C-4DBD-B3F4-9064E554A15D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7731AE3-445C-4DBD-B3F4-9064E554A15D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7731AE3-445C-4DBD-B3F4-9064E554A15D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD99D35-6E52-45CC-81D1-965157BF950E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD99D35-6E52-45CC-81D1-965157BF950E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD99D35-6E52-45CC-81D1-965157BF950E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD99D35-6E52-45CC-81D1-965157BF950E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
