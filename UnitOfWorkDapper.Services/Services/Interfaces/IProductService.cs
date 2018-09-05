@@ -10,7 +10,7 @@ namespace UnitOfWorkDapper.Services.Services.Interfaces
     {
         Task<IEnumerable<Product>> GetAllAsync();
 
-        Task<Product> SaveAsync(Product product);
+        Task<bool> SaveAsync(Product product);
 
         Task<Product> GetByIdAsync(int id);
     }

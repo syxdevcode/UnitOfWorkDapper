@@ -29,13 +29,15 @@ namespace UnitOfWorkDapper.Core
         /// <summary>
         /// Save changes into context.
         /// </summary>
-        public void SaveChanges()
+        public bool SaveChanges()
         {
             if (!_context.IsTransactionStarted)
                 throw new InvalidOperationException("Transaction have already been commited or disposed.");
 
             // commits transation
             _context.Commit();
+
+            return true;
         }
 
         public void Dispose()

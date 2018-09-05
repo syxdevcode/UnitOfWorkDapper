@@ -10,6 +10,6 @@ namespace UnitOfWorkDapper.Core
         /// <summary>
         /// Save changes into context.
         /// </summary>
-        void SaveChanges();
+        bool SaveChanges();
     }
 }

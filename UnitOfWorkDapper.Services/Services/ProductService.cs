@@ -30,7 +30,7 @@ namespace UnitOfWorkDapper.Services.Services
             return await _productRepository.GetByIdAsync(id);
         }
 
-        public async Task<Product> SaveAsync(Product product)
+        public async Task<bool> SaveAsync(Product product)
         {
             if (product.Id > 0)
             {
@@ -42,9 +42,9 @@ namespace UnitOfWorkDapper.Services.Services
                 // insert data
                 await _productRepository.InsertAsync(product);
             }
-            _unitOfWork.SaveChanges();
+            var b= _unitOfWork.SaveChanges();
 
-            return product;
+            return b;
         }
     }
 }

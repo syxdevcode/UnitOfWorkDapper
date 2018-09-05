@@ -4,14 +4,31 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using UnitOfWorkDapper.Services.Entity;
+using UnitOfWorkDapper.Services.Services.Interfaces;
 using UnitOfWorkDapper.Web.Models;
 
 namespace UnitOfWorkDapper.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IProductService productService;
+
+        public HomeController(IProductService _productService)
+        {
+            productService = _productService;
+        }
+
         public IActionResult Index()
         {
+            Product product = new Product();
+
+            product.Id = 1;
+            product.Name = "测试商品1";
+            product.Price = 1999;
+
+            productService.SaveAsync(product);
+
             return View();
         }
 

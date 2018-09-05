@@ -9,6 +9,13 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UnitOfWorkDapper.Core;
+using UnitOfWorkDapper.Services;
+using UnitOfWorkDapper.Services.Repositories;
+using UnitOfWorkDapper.Services.Repositories.Interfaces;
+using UnitOfWorkDapper.Services.Services;
+using UnitOfWorkDapper.Services.Services.Interfaces;
+using UnitOfWorkDapper.Web.Extensions;
 
 namespace UnitOfWorkDapper.Web
 {
@@ -31,6 +38,12 @@ namespace UnitOfWorkDapper.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddDapperDBContext<MyDbContext>(options => {
+                options.Configuration = Configuration["Connection:Default"];
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -45,10 +58,10 @@ namespace UnitOfWorkDapper.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                //app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

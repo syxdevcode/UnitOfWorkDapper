@@ -7,7 +7,7 @@ using UnitOfWorkDapper.Core;
 
 namespace UnitOfWorkDapper.Web.Extensions
 {
-    public static class DapperDBContextServiceCollectionExtensions
+    public static class DapperDBContextExtensions
     {
         public static IServiceCollection AddDapperDBContext<T>(this IServiceCollection services, Action<DapperDBContextOptions> setupAction) where T : DapperDBContext
         {
@@ -23,8 +23,7 @@ namespace UnitOfWorkDapper.Web.Extensions
 
             services.AddOptions();
             services.Configure(setupAction);
-            services.AddScoped<DapperDBContext, T>();
-            services.AddScoped<IUnitOfWorkFactory, DapperUnitOfWorkFactory>();
+            services.AddScoped<IContext, T>();
 
             return services;
         }
