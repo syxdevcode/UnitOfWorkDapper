@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnitOfWorkDapper.Core;
 using UnitOfWorkDapper.Services.Entity;
@@ -42,7 +40,7 @@ namespace UnitOfWorkDapper.Services.Services
                 // insert data
                 await _productRepository.InsertAsync(product);
             }
-            var b= _unitOfWork.SaveChanges();
+            var b = _unitOfWork.SaveChanges();
 
             return b;
         }

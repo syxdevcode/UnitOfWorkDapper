@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnitOfWorkDapper.Core;
 using UnitOfWorkDapper.Services.Entity;
@@ -29,7 +27,7 @@ namespace UnitOfWorkDapper.Services.Repositories
 
         public async Task<bool> InsertAsync(Product product)
         {
-            var b= await _context.ExecuteAsync("INSERT INTO Product VALUES (@Id, @Name, @Price)", product) > 0;
+            var b = await _context.ExecuteAsync("INSERT INTO Product VALUES (@Id, @Name, @Price)", product) > 0;
             return b;
         }
 

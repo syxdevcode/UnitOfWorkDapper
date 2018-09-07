@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
-using MySql.Data.MySqlClient;
-using System;
 using System.Data;
+using System.Data.SqlClient;
 using UnitOfWorkDapper.Core;
 
 namespace UnitOfWorkDapper.Services
@@ -18,7 +17,12 @@ namespace UnitOfWorkDapper.Services
         /// <returns>The connection object.</returns>
         protected override IDbConnection CreateConnection(string connectionString)
         {
-            IDbConnection conn = new MySqlConnection(connectionString);
+            // mysql
+            //IDbConnection conn = new MySqlConnection(connectionString);
+
+            // sql
+            IDbConnection conn = new SqlConnection(connectionString);
+
             return conn;
         }
     }

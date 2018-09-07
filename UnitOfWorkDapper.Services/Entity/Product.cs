@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UnitOfWorkDapper.Services.Entity
+﻿namespace UnitOfWorkDapper.Services.Entity
 {
     public class Product
     {

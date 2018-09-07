@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,7 +44,6 @@ namespace UnitOfWorkDapper.Core
 
         private readonly DapperDBContextOptions _options;
 
-
         /// <summary>
         /// Creates connection object to database.
         /// </summary>
@@ -57,7 +55,11 @@ namespace UnitOfWorkDapper.Core
             _options = optionsAccessor.Value;
 
             _connection = CreateConnection(_options.Configuration);
-            _connection.Open();
+
+            if (_connection.State != ConnectionState.Open)
+            {
+                _connection.Open();
+            }
 
             DebugPrint("Connection started.");
         }

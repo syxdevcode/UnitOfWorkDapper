@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper.Services",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper.Web", "UnitOfWorkDapper.Web\UnitOfWorkDapper.Web.csproj", "{1154D12D-0503-40E1-84D4-5D587160B0CC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{3729E28D-AACF-4A6C-8DDD-0B7C85820C32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWorkDapper.Common", "UnitOfWorkDapper.Common\UnitOfWorkDapper.Common.csproj", "{AB3D8ED3-616E-4D52-A818-EFB250A2DEB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,10 @@ Global
 		{1154D12D-0503-40E1-84D4-5D587160B0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1154D12D-0503-40E1-84D4-5D587160B0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1154D12D-0503-40E1-84D4-5D587160B0CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB3D8ED3-616E-4D52-A818-EFB250A2DEB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB3D8ED3-616E-4D52-A818-EFB250A2DEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB3D8ED3-616E-4D52-A818-EFB250A2DEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB3D8ED3-616E-4D52-A818-EFB250A2DEB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 
 namespace UnitOfWorkDapper.Core
 {
-     /// <summary>
+    /// <summary>
     /// The interface of unit of work.
     /// </summary>
     public interface IUnitOfWork : IDisposable
