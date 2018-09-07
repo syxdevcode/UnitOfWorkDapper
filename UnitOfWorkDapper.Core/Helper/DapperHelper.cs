@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,149 +9,100 @@ namespace UnitOfWorkDapper.Core.Helper
 {
     public class DapperHelper<T> where T : class, IDbConnection, new()
     {
-        private static IDbConnection CreateConnection(string connectionString)
+        private IDbConnection conn;
+
+        private string conStr = string.Empty;
+
+        public DapperHelper(string connectionString)
         {
-            var conn = new T();
+            conStr = connectionString;
+            conn = new T();
             conn.ConnectionString = connectionString;
             if (conn.State != ConnectionState.Open)
             {
                 conn.Open();
             }
-
-            return conn;
-        }
-
-        private static async Task<IDbConnection> CrateConnectionAsync(string connectionString)
-        {
-            var conn = new T();
-            conn.ConnectionString = connectionString;
-            var tempconn = conn as SqlConnection;
-            if (conn.State != ConnectionState.Open)
-            {
-                if (tempconn != null)
-                {
-                    await tempconn.OpenAsync();
-                }
-            }
-
-            return tempconn;
         }
 
         /// <summary>
-        /// 执行增、删、改方法
+        /// 执行方法
         /// </summary>
-        /// <param name="connectionString"></param>
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static int ExecuteNonQuery(string connectionString, string sql, object parameters = null)
+        public int ExecuteNonQuery(string sql, object parameters = null)
         {
-            using (IDbConnection conn = CreateConnection(connectionString))
-            {
-                return conn.Execute(sql, parameters);
-            }
-        }
-
-        public static Task<int> ExecuteNonQueryAsync(string connectionString, string sql, object parameters = null)
-        {
-            using (IDbConnection conn = CrateConnectionAsync(connectionString).Result)
-            {
-                return conn.ExecuteAsync(sql, parameters);
-            }
+            return conn.Execute(sql, parameters);
         }
 
         /// <summary>
-        /// 得到单行单列
+        /// 异步执行方法
         /// </summary>
-        /// <param name="connectionString"></param>
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static object ExecuteScalar(string connectionString, string sql, object parameters = null)
+        public async Task<int> ExecuteNonQueryAsync(string sql, object parameters = null)
         {
-            using (IDbConnection conn = CreateConnection(connectionString))
-            {
-                return conn.ExecuteScalar(sql, parameters);
-            }
+            return await conn.ExecuteAsync(sql, parameters);
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public object ExecuteScalar(string sql, object parameters = null)
+        {
+            return conn.ExecuteScalar(sql, parameters);
         }
 
         /// <summary>
         /// 单个数据集查询
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
-        /// <param name="connectionString"></param>
         /// <param name="sql"></param>
         /// <param name="where"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static List<TEntity> Query<TEntity>(string connectionString, string sql, Func<TEntity, bool> where, object parameters = null)
+        public List<TEntity> Query<TEntity>(string sql, Func<TEntity, bool> where, object parameters = null)
         {
-            using (IDbConnection conn = CreateConnection(connectionString))
-            {
-                return conn.Query<TEntity>(sql, parameters, commandTimeout: 0).Where(where).ToList();
-            }
+            return conn.Query<TEntity>(sql, parameters, commandTimeout: 0).Where(where).ToList();
         }
 
         /// <summary>
         /// 单个数据集查询
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
-        /// <param name="connectionString"></param>
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static List<TEntity> Query<TEntity>(string connectionString, string sql, object parameters = null)
+        public List<TEntity> Query<TEntity>(string sql, object parameters = null)
         {
-            using (IDbConnection conn = CreateConnection(connectionString))
-            {
-                return conn.Query<TEntity>(sql, parameters, commandTimeout: 0).ToList();
-            }
+            return conn.Query<TEntity>(sql, parameters, commandTimeout: 0).ToList();
         }
 
         /// <summary>
         /// 多个数据集查询
         /// </summary>
-        /// <param name="connectionString"></param>
         /// <param name="sql"></param>
         /// <param name="parameters">DynamicParameters</param>
         /// <returns></returns>
-        public static SqlMapper.GridReader MultyQuery(string connectionString, string sql, object parameters = null)
+        public SqlMapper.GridReader MultyQuery(string sql, object parameters = null)
         {
-            IDbConnection conn = CreateConnection(connectionString);
             return conn.QueryMultiple(sql, parameters, commandTimeout: 0);
         }
 
-        /// <summary>
-        /// demo： var data = connection.Query(() => new {Id = default(int),Name = default(string),}, "SELECT Id, Name FROM Table");
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connectionString"></param>
-        /// <param name="typeBuilder"></param>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public static IEnumerable<Entity> Query<Entity>(string connectionString, Func<Entity> typeBuilder, string sql, object parameters = null)
+        public IEnumerable<Entity> Query<Entity>(Func<Entity> typeBuilder, string sql, object parameters = null)
         {
-            using (IDbConnection conn = CreateConnection(connectionString))
-            {
-                return conn.Query<Entity>(sql, parameters, commandTimeout: 0);
-            }
+            return conn.Query<Entity>(sql, parameters, commandTimeout: 0);
         }
 
-        /// <summary>
-        /// demo：
-        /// DatabaseHelper<SQLiteConnection>.Execute(connectionStr, x =>{return x.Query<int>("select 1");}, true);
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="connectionString"></param>
-        /// <param name="action"></param>
-        /// <param name="useTran"></param>
-        /// <returns></returns>
-        public static TResult Execute<TResult>(string connectionString, Func<T, IDbTransaction, TResult> action, bool useTran)
+        public TResult Execute<TResult>(Func<T, IDbTransaction, TResult> action, bool useTran)
         {
             using (var conn = new T())
             {
-                conn.ConnectionString = connectionString;
+                conn.ConnectionString = this.conStr;
                 if (conn.State != ConnectionState.Open)
                 {
                     conn.Open();
@@ -183,12 +133,12 @@ namespace UnitOfWorkDapper.Core.Helper
         }
 
         /// <summary>
-        /// DatabaseHelper<SQLiteConnection>.Execute(connectionStr, x =>{x.Query<int>("delete from Test where Id=1");x.Query<int>("select * from Test where Id=1");}, true);
+        ///  执行--使用事物
         /// </summary>
         /// <param name="connectionString"></param>
         /// <param name="action"></param>
         /// <param name="useTran"></param>
-        public static void Execute(string connectionString, Action<T, IDbTransaction> action, bool useTran)
+        public void Execute(string connectionString, Action<T, IDbTransaction> action, bool useTran)
         {
             using (var conn = new T())
             {
@@ -209,7 +159,6 @@ namespace UnitOfWorkDapper.Core.Helper
                         catch (Exception ex)
                         {
                             tran.Rollback();
-                            //Logger.Log("数据库操作异常", ex);
                         }
                     }
                 }
@@ -228,7 +177,7 @@ namespace UnitOfWorkDapper.Core.Helper
         /// <param name="pageCriteria">查询条件</param>
         /// <param name="totalNum">总数</param>
         /// <returns></returns>
-        public static PageDataView<T> GetPageListForSQL<T>(string connectionString, PageCriteria pageCriteria)
+        public PageDataView<T> GetPageListForSQL<T>(PageCriteria pageCriteria)
         {
             var result = new PageDataView<T>();
             string sql = "SELECT * from(SELECT " + pageCriteria.Fields + ",row_number() over(order by " + pageCriteria.Sort + ") rownum FROM " + pageCriteria.TableName + " where " + pageCriteria.Condition + ") t where rownum>@minrownum and rownum<=@maxrownum";
@@ -245,7 +194,7 @@ namespace UnitOfWorkDapper.Core.Helper
                     p.Add(param.ParamName, param.ParamValue);
                 }
             }
-            var reader = MultyQuery(connectionString, sql + ";" + countSql, p);
+            var reader = MultyQuery(sql + ";" + countSql, p);
             result.Items = reader.Read<T>().ToList();
             result.TotalNum = reader.Read<int>().First<int>();
             result.CurrentPage = pageCriteria.CurrentPage;

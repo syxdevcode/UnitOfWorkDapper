@@ -49,19 +49,34 @@ namespace UnitOfWorkDapper.Services.Services
             return await _userRepository.GetByIdAsync(id);
         }
 
-        public async Task<bool> ImportUser(User user,UserInfo userInfo,UserAddress userAddress)
+        public async Task<bool> ImportUser(User user, UserInfo userInfo, List<UserAddress> listAddress)
         {
-            var b1= await _userRepository.UpdateAsync(user);
+            var b1 = await _userRepository.UpdateAsync(user);
 
-            var b2 = await _userRepository.UpdateAsync(user);
-            var b3 = await _userRepository.UpdateAsync(user);
+            var b2 = false;
+
+            if (!string.IsNullOrWhiteSpace(userInfo.UserId))
+                b2 = await _userInfoRepository.UpdateAsync(userInfo);
+            else b2 = true;
+
+            var b3 = false;
+
+            if (listAddress.Count == 0) b3 = true;
+
+            foreach (var item in listAddress)
+            {
+                var b4 = await _userAddressRepository.UpdateAsync(item);
+
+                if (!b4) break;
+                else b3 = true;
+            }
 
             bool result = false;
 
             if (b1 && b2 && b3)
             {
                 result = _unitOfWork.SaveChanges();
-            }            
+            }
 
             return result;
         }

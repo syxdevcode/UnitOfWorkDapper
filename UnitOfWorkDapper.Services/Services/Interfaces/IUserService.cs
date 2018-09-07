@@ -14,6 +14,6 @@ namespace UnitOfWorkDapper.Services.Services.Interfaces
 
         Task<User> GetByIdAsync(int id);
 
-        Task<bool> ImportUser(User user, UserInfo userInfo, UserAddress userAddress);
+        Task<bool> ImportUser(User user, UserInfo userInfo, List<UserAddress> listAddress);
     }
 }

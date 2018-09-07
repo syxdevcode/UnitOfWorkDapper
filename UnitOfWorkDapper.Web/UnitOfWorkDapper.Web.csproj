@@ -13,4 +13,10 @@
     <ProjectReference Include="..\UnitOfWorkDapper.Services\UnitOfWorkDapper.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Util">
+      <HintPath>..\Lib\Util.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
